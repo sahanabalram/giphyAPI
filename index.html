@@ -12,16 +12,25 @@
 </head>
 
 <body>
-    <h1 class="text-center">GIPHY FUN!!!!</h1>
-    <div id="movies-button"></div>
-    <form id="movie">
-        <label for="movie-input">Add a Movie</label>
-        <input type="text" id="input-movie"><br>
-        <input id="movie-add" type="submit" value="Add your favourite movie">
-    </form>
-    <div id="movies-view">
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <div class="row">
+                <h1 class="text-center text-animation">GIPHY FUN!!!!</h1>
+            </div>
+            <div class="row">
+                <div id="movies-button"></div>
+            </div>
+            <div class="row">
+                <form id="movie-form" class="form-group">
+                    <label for="movie-label">Add a Movie</label>
+                    <input type="text" id="input-movie"><br>
+                    <input id="movie-add" class="btn btn-primary" type="submit" value="Submit">
+                </form>
+            </div>
+            <div id="movies-view">
+            </div>
+        </div>
     </div>
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/javascript/giphy.js"></script>
