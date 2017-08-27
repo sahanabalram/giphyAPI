@@ -1,6 +1,6 @@
 .movies-div {
     width: 200px;
-    height: 200px;
+    height: 250px;
 }
 
 
@@ -10,21 +10,27 @@ button.btn {
     /* background-color: tan; */
 }
 
-h1.text-center.text-animation {
+h1.text-animation {
     transition: 9s;
+    color: #01579b;
+    font-family: 'Bree Serif', serif;
+    text-align: center;
 }
 
-h1.text-center.text-animation:hover {
+h1.text-animation:hover {
     transform: rotateY(360deg);
 }
 body {
-    background-color: thistle;
+    background-color: #eeeeee;
 }
 div.container-fluid {
     margin: 0 auto;
 }
 
-
+.rating-button {
+    position: absolute;
+    margin: 10px;
+}
 p,label {
     color: black;
 }

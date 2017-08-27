@@ -2,8 +2,6 @@
 var movies = ["The Hunger Games", "Star Wars", "Harry Potter", "Twilight", "Frozen", "The NoteBook", "Home Alone", "Baby's Day Out", "Cinderalla", "Beauty And the Beast", "Interstellar", "The Martian"];
 // GIPHY API key and the URL
 
-var print = console.log;
-
 function animate() {
     var state = $(this).attr("data-state");
     if (state === "still") {
@@ -15,49 +13,54 @@ function animate() {
     }
 }
 
-function createRow() {
+function createImageCard(imageData) {
+    var colDiv = $("<div>")
+    colDiv.addClass("col s12 m4");
+    var mainCard = $("<div>");
+    mainCard.addClass("card");
+    var cardImage = $("<div>");
+    cardImage.addClass("card-image waves-effect waves-block waves-light");
+    mainCard.append(cardImage);
+    var image = $("<img>");
+    image.addClass("movies-div");
+    // storing the rating information for each image in a paragraph
+    var movieRatings = imageData.rating;
+    var movieImageUrlStill = imageData.images.fixed_height_still.url;
+    var movieImageUrlAnimate = imageData.images.fixed_height.url;
+    var ratingButton = $("<a>");
+    ratingButton.addClass("btn-floating fab-backdrop btn-large btn-price waves-effect waves-light pink accent-2 rating-button");
+    $(ratingButton).text(movieRatings);
+                                       
+    // attributes added to the image objactthat is created above
+    image.attr("src", movieImageUrlStill);
+    image.attr("alt", "movie image");
+    image.attr("data-state", "still");
+    image.attr("data-still", movieImageUrlStill);
+    image.attr("data-animate", movieImageUrlAnimate);
+    cardImage.append(ratingButton);
+    cardImage.append(image);
+    
+    colDiv.append(mainCard);
 
+    return colDiv;
 }
 
 function renderMovieName() {
     var movieNames = $(this).attr("data-name");
-    var giphyURL = 'https://api.giphy.com/v1/gifs/search?api_key=cc9ad884c34f4733900dba633d22a99d&q="' + movieNames + '"&limit=10&offset=0&rating=G&lang=en';
+    var giphyURL = 'https://api.giphy.com/v1/gifs/search?api_key=cc9ad884c34f4733900dba633d22a99d&q="' + movieNames + '"&limit=10&offset=0&rating=&lang=en';
     console.log(giphyURL);
     $.get(giphyURL, function (giphs) {
-        var moviesTriggerButton = giphs.data;
+        //var moviesTriggerButton = giphs.data;
         var movieRow;
         $("#movies-view").empty();
-        for (var i = 0; i < moviesTriggerButton.length; i++) {
+        for (var i = 0; i < giphs.data.length; i++) {
+            // for every three images a new row is created
             if ((i) % 3 == 0) {
                 movieRow = $("<div>");
-                movieRow.addClass("col-md-4 col-md-4 col-md-4");
+                movieRow.addClass("row");
                 $("#movies-view").append(movieRow);
             }
-            // creating a new div to store the movie ratings
-            var movieDiv = $("<div>");
-            // getting rating information from the data
-            var movieRatings = moviesTriggerButton[i].rating;
-            // storing the rating information for each image in a paragraph
-            var movieParagraph = $("<p>").text("Ratings:" + movieRatings);
-            var movieImageUrlStill = giphs.data[i].images.fixed_height_still.url;
-            var movieImageUrlAnimate = giphs.data[i].images.fixed_height.url;
-            // defines jQUERY image object
-            var moviesImage = $("<img>");
-            moviesImage.addClass("movies-div");
-            moviesImage.addClass("img-thumbnail");
-            // attributes added to the image objactthat is created above
-            moviesImage.attr("src", movieImageUrlStill);
-            moviesImage.attr("alt", "movie image");
-            moviesImage.attr("data-state", "still");
-            moviesImage.attr("data-still", movieImageUrlStill);
-            moviesImage.attr("data-animate", movieImageUrlAnimate);
-
-            // dump all the images into the image div
-            // prepends img object to DOM element with id of images
-            movieDiv.append(movieParagraph);
-            movieDiv.append(moviesImage);
-            // $("#movies-view").append(movieDiv);
-            movieRow.append(movieDiv);
+            movieRow.append(createImageCard(giphs.data[i]));
 
         }
         $(".movies-div").on("click", animate);
@@ -68,7 +71,7 @@ function createButton(mN) {
     var movieButton = $("<button>");
     // Add bootstrap classes
     movieButton.addClass("btn");
-    movieButton.addClass("btn-warning");
+    movieButton.addClass("btn-warning orange darken-4");
     // Add a data-attribute
     movieButton.attr("data-name", mN);
     // Provide the initial button text
@@ -97,4 +100,5 @@ $("#movie-add").on("click", function () {
 
 $(document).ready(function () {
     callButtons();
+    $('.carousel').carousel();
 });
