@@ -6,11 +6,9 @@ var movies = ["The Hunger Games", "Star Wars", "Harry Potter", "Twilight"]
 function animate() {
     var state = $(this).attr("data-state");
     if (state === "still") {
-        alert("Animating");
         $(this).attr("src", $(this).attr("data-animate"));
         $(this).attr("data-state", "animate");
     } else {
-        alert("Stilling");
         $(this).attr("src", $(this).attr("data-still"));
         $(this).attr("data-state", "still");
     }
@@ -32,7 +30,6 @@ function renderMovieName() {
             // images of the movies will get displayed here
             var movieImageUrlStill = giphs.data[i].images.fixed_height_still.url;
             var movieImageUrlAnimate = giphs.data[i].images.fixed_height.url;
-            console.log(movieImageUrlAnimate);
             // defines jQUERY image object
             var moviesImage = $("<img>");
             moviesImage.addClass("movies-div");
@@ -59,27 +56,35 @@ function callButtons() {
     for (var i = 0; i < movies.length; i++) {
         // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
         var movieButton = $("<button>");
-        // Adding a class
+        // Add a class
         movieButton.addClass("movies");
-        // Added a data-attribute
+        // Add a data-attribute
         movieButton.attr("data-name", movies[i]);
-        // Provided the initial button text
+        // Provide the initial button text
         movieButton.text(movies[i]);
-        // Added the button to the HTML
+        // Add the button to the HTML
         $("#movies-button").append(movieButton);
     }
 }
 
+$("#movie-add").on("click", function () {
+    event.preventDefault();
+    var newMovie = $("#input-movie").val().trim();
+    movies.push(newMovie);
+    var movieButton = $("<button>");
+    // Add a class
+    movieButton.addClass("movies");
+    // Add a data-attribute
+    movieButton.attr("data-name", newMovie);
+    // Set initial button text
+    movieButton.text(newMovie);
+    // Add the button to the div
+    $("#movies-button").append(movieButton);
+    // Add onClick listener function
+    $(movieButton).on("click", renderMovieName);
+});
+
 $(document).ready(function () {
     callButtons();
-
-    $("#movie-add").on("click", function () {
-        event.preventDefault();
-        var newMovies = $("#input-movie").val().trim();
-        movies.push(newMovies);
-        callButtons();
-    });
     $(".movies").on("click", renderMovieName);
-
-
 });
