@@ -1,0 +1,30 @@
+.movies-div {
+    width: 200px;
+    height: 200px;
+}
+
+
+button.btn {
+    margin: 5px;
+    border-radius: 5%;
+    /* background-color: tan; */
+}
+
+h1.text-center.text-animation {
+    transition: 9s;
+}
+
+h1.text-center.text-animation:hover {
+    transform: rotateY(360deg);
+}
+body {
+    background-color: thistle;
+}
+div.container-fluid {
+    margin: 0 auto;
+}
+
+
+p,label {
+    color: black;
+}
