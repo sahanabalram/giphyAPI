@@ -48,7 +48,7 @@ function createImageCard(imageData) {
 function renderMovieName() {
     var movieNames = $(this).attr("data-name");
     var giphyURL = 'https://api.giphy.com/v1/gifs/search?api_key=cc9ad884c34f4733900dba633d22a99d&q="' + movieNames + '"&limit=10&offset=0&rating=&lang=en';
-    console.log(giphyURL);
+    
     $.get(giphyURL, function (giphs) {
         //var moviesTriggerButton = giphs.data;
         var movieRow;
