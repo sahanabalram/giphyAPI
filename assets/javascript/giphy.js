@@ -30,7 +30,7 @@ function createImageCard(imageData) {
     var ratingButton = $("<a>");
     ratingButton.addClass("btn-floating fab-backdrop btn-large btn-price waves-effect waves-light pink accent-2 rating-button");
     $(ratingButton).text(movieRatings);
-                                       
+
     // attributes added to the image objactthat is created above
     image.attr("src", movieImageUrlStill);
     image.attr("alt", "movie image");
@@ -39,7 +39,7 @@ function createImageCard(imageData) {
     image.attr("data-animate", movieImageUrlAnimate);
     cardImage.append(ratingButton);
     cardImage.append(image);
-    
+
     colDiv.append(mainCard);
 
     return colDiv;
@@ -48,7 +48,6 @@ function createImageCard(imageData) {
 function renderMovieName() {
     var movieNames = $(this).attr("data-name");
     var giphyURL = 'https://api.giphy.com/v1/gifs/search?api_key=cc9ad884c34f4733900dba633d22a99d&q="' + movieNames + '"&limit=10&offset=0&rating=&lang=en';
-    
     $.get(giphyURL, function (giphs) {
         //var moviesTriggerButton = giphs.data;
         var movieRow;
